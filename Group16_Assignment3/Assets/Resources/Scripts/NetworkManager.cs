@@ -60,7 +60,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0,0,0), new Quaternion(0,0,0,0));
+        
     }
 
     public override void OnJoinedRoom()
@@ -68,6 +68,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
        // Instantiate(playerPrefab);
        
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
     }
 
 
