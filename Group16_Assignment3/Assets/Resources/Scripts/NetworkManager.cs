@@ -60,7 +60,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-        Instantiate(playerPrefab);
+        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0,0,0), new Quaternion(0,0,0,0));
     }
 
     public override void OnJoinedRoom()
