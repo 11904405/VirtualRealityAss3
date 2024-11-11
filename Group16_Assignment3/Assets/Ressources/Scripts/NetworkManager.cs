@@ -11,6 +11,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
+    public GameObject playerPrefab;
+
+
     #region Private Fields
 
     /// <summary>
@@ -57,10 +60,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        Instantiate(playerPrefab);
     }
 
     public override void OnJoinedRoom()
     {
+       // Instantiate(playerPrefab);
+       
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
     }
 
