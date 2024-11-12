@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28487f0e2ce1c834f9c88d30b3b62442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformToSynchronize: {fileID: 0}
+  tagOfPositionToSync: LeftHand
 --- !u!1 &763748099674964085
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28487f0e2ce1c834f9c88d30b3b62442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformToSynchronize: {fileID: 0}
+  tagOfPositionToSync: RightHand
 --- !u!1 &763748100939231068
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,4 +461,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28487f0e2ce1c834f9c88d30b3b62442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformToSynchronize: {fileID: 0}
+  tagOfPositionToSync: MainCamera
