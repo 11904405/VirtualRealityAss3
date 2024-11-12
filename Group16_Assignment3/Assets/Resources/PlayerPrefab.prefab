@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 763748099541728759}
   - component: {fileID: 763748099541728758}
   - component: {fileID: 763748099541728761}
+  - component: {fileID: 5747094498707777986}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -172,6 +173,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5747094498707777986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763748099541728763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &763748099674964085
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +201,7 @@ GameObject:
   - component: {fileID: 763748099674964081}
   - component: {fileID: 763748099674964080}
   - component: {fileID: 763748099674964083}
+  - component: {fileID: 2645494998848857770}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -269,6 +287,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2645494998848857770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763748099674964085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &763748100939231068
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +315,7 @@ GameObject:
   - component: {fileID: 763748100939231064}
   - component: {fileID: 763748100939231067}
   - component: {fileID: 763748100939231066}
+  - component: {fileID: 4396237647560835811}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -366,3 +401,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4396237647560835811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763748100939231068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
