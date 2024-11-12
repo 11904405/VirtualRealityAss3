@@ -18,7 +18,15 @@ public class SynchronizingTransformOfObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = objectToSync.transform.position;
-        this.transform.rotation = objectToSync.transform.rotation;
+        if(objectToSync != null)
+        {
+            this.transform.position = objectToSync.transform.position;
+            this.transform.rotation = objectToSync.transform.rotation;
+        }
+        else
+        {
+            Debug.Log("Object to sync with tag " + tagOfPositionToSync + " could not be found");
+        }
+        
     }
 }
