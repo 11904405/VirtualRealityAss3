@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class SynchronizingTransformOfObjects : MonoBehaviour
+
+public class SynchronizingTransformOfObjects : MonoBehaviourPun
 {
     // Start is called before the first frame update
 
@@ -18,7 +21,7 @@ public class SynchronizingTransformOfObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(objectToSync != null)
+        if(objectToSync != null && this.photonView.IsMine)
         {
             this.transform.position = objectToSync.transform.position;
             this.transform.rotation = objectToSync.transform.rotation;
