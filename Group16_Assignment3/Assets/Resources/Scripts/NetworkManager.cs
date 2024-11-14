@@ -68,7 +68,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
        // Instantiate(playerPrefab);
        
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 10, 0), new Quaternion(0, 0, 0, 0));
     }
 
 
