@@ -40,7 +40,7 @@ public class LocomotionWithHandMov : MonoBehaviour
         {
             //Debug.Log("Y Posititon of left hand controller: " + leftHand.transform.position.y);
             Debug.Log("In High Interval");
-            leftHand.SendHapticImpulse(0.5f, 3);
+            //leftHand.SendHapticImpulse(0.5f, 3);
             if (startDownMovement)
             {
                 timeForMovement = 0;
@@ -54,7 +54,7 @@ public class LocomotionWithHandMov : MonoBehaviour
         {
             //Debug.Log("Y Posititon of left hand controller: " + leftHand.transform.position.y);
             Debug.Log("In Low Interval");
-            leftHand.SendHapticImpulse(0.5f, 3);
+            //leftHand.SendHapticImpulse(0.5f, 3);
             if (startUpMovement)
             {
                 timeForMovement = 0;
