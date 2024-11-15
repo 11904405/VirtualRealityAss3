@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
+    private int playersCounter;
 
     #endregion
 
@@ -41,6 +42,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Connect();
+        playersCounter = 0;
     }
 
     public override void OnConnectedToMaster()
@@ -65,15 +67,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-       // Instantiate(playerPrefab);
-       
+        // Instantiate(playerPrefab);
+        
+        playersCounter = PhotonNetwork.PlayerList.Length;
+        Debug.Log("playersCounter: " + playersCounter);
+        if (playersCounter == 0)
+        {
+            playersCounter = 1;
+        }
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 10, 0), new Quaternion(0, 0, 0, 0));
+        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 10, 13.5f + (playersCounter - 1) * 35), new Quaternion(0, 0, 0, 0));
+        PhotonNetwork.Instantiate("Track", new Vector3(0, 0, (playersCounter-1) * 35), new Quaternion(0, 0, 0, 0));
     }
-
-
-
-
 
     #endregion
 

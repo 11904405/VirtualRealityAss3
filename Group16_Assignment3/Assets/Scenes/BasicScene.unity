@@ -581,7 +581,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 40d5f39ae0668b14f9d71f56c2981be7, type: 2}
+  - {fileID: 2100000, guid: 4ef4a344aa2cf45ebae0541516cb5d4c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1047,6 +1047,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2187387200294533343, guid: d3e31bd7e41b44e27bf1c899b0f5b342, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6958629292141638716, guid: d3e31bd7e41b44e27bf1c899b0f5b342, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1094,6 +1098,10 @@ PrefabInstance:
     - target: {fileID: 7771476645764574854, guid: d3e31bd7e41b44e27bf1c899b0f5b342, type: 3}
       propertyPath: m_Name
       value: Track
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771476645764574854, guid: d3e31bd7e41b44e27bf1c899b0f5b342, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3e31bd7e41b44e27bf1c899b0f5b342, type: 3}
