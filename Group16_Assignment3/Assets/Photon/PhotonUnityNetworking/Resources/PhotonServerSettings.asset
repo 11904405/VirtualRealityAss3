@@ -43,6 +43,8 @@ MonoBehaviour:
   - increaseRdyToPlayCounter
   - startGame
   - othersLose
+  - playersNotRdy
+  - resetValues
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

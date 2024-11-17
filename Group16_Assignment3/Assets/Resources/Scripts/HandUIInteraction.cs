@@ -13,7 +13,12 @@ public class HandUIInteraction : MonoBehaviourPun
     private int playersCounter;
     private int rdyPlayers;
 
+    private bool thisPlayerRdy;
+
     public GameObject playerRig;
+
+    public GameObject youWin;
+    public GameObject youLose;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +30,10 @@ public class HandUIInteraction : MonoBehaviourPun
 
 
         rdyPlayers = 0;
-        
+
+        thisPlayerRdy = false;
+
+
 
 
     }
@@ -39,19 +47,25 @@ public class HandUIInteraction : MonoBehaviourPun
 
     void ResetGame()
     {
+        photonView.RPC("resetValues", RpcTarget.All);
         photonView.RPC("resetGamePositionAll", RpcTarget.All);
     }
 
     void ReadyToPlay()
     {
-        photonView.RPC("increaseRdyToPlayCounter", RpcTarget.All);
-
-        if(rdyPlayers == playersCounter)
+        if (!thisPlayerRdy)
         {
-            photonView.RPC("resetGamePositionAll", RpcTarget.All);
-            photonView.RPC("startGame", RpcTarget.All);
+            thisPlayerRdy = true;
+            photonView.RPC("increaseRdyToPlayCounter", RpcTarget.All);
 
+            if (rdyPlayers == playersCounter)
+            {
+                photonView.RPC("resetGamePositionAll", RpcTarget.All);
+                photonView.RPC("startGame", RpcTarget.All);
+
+            }
         }
+       
     }
 
     [PunRPC]
@@ -71,5 +85,13 @@ public class HandUIInteraction : MonoBehaviourPun
     public void increaseRdyToPlayCounter()
     {
         rdyPlayers += 1;
+    }
+
+    [PunRPC]
+    public void resetValues()
+    {
+        thisPlayerRdy = false;
+        youWin.SetActive(false);
+        youLose.SetActive(false);
     }
 }

@@ -189,6 +189,8 @@ MonoBehaviour:
   readyToPlayButton: {fileID: 786974960}
   networkManager: {fileID: 1723451712}
   playerRig: {fileID: 452463682}
+  youWin: {fileID: 0}
+  youLose: {fileID: 0}
 --- !u!1 &299639867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1225,8 @@ MonoBehaviour:
   readyToPlayButton: {fileID: 1691335368}
   networkManager: {fileID: 1723451712}
   playerRig: {fileID: 452463682}
+  youWin: {fileID: 1558871291}
+  youLose: {fileID: 818942982}
 --- !u!114 &1791190127
 MonoBehaviour:
   m_ObjectHideFlags: 0
