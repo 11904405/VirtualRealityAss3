@@ -404,6 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 452463683}
   headTransform: {fileID: 452463681}
+  mainCamera: {fileID: 452463681}
 --- !u!114 &452463695
 MonoBehaviour:
   m_ObjectHideFlags: 0
