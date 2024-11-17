@@ -40,7 +40,7 @@ public class WinLoseNotificationScript : MonoBehaviourPun
         {
             if (!gameFinished)
             {
-                photonView.RPC("othersLose", RpcTarget.All);
+                photonView.RPC("othersLose", RpcTarget.Others);
                 gameFinished = true;
                 youWin.SetActive(true);
             }
