@@ -83,10 +83,11 @@ public class LocomotionWithHandMov : MonoBehaviour
         if (startUpMovement == true)
         {
             timeForMovement += Time.deltaTime;
-            if (timeForMovement > 3)
+            if (timeForMovement > 2)
             {
                 startUpMovement = false;
                 timeForMovement = 0;
+                speed = 0;
             }
             if (leftHand.transform.position.y > heightMax - 0.1)
             {
@@ -105,10 +106,11 @@ public class LocomotionWithHandMov : MonoBehaviour
         if (startDownMovement == true)
         {
             timeForMovement += Time.deltaTime;
-            if (timeForMovement > 3)
+            if (timeForMovement > 1.4f)
             {
                 startDownMovement = false;
                 timeForMovement = 0;
+                speed = 0;
             }
             if (leftHand.transform.position.y < heightMin + 0.1)
             {
