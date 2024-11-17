@@ -4,27 +4,22 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    #region Private Serializable Fields
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
     private int playersCounter;
 
-    #endregion
-
     public GameObject playerPrefab;
+    public GameObject playerRig;
 
+    public int playerID;
 
-    #region Private Fields
 
     /// <summary>
     /// This client's version number. Users are separated from each other by gameVersion (which allows you to make breaking changes).
     /// </summary>
     string gameVersion = "1";
 
-        #endregion
-
-        #region MonoBehaviour CallBacks
 
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
@@ -43,6 +38,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Connect();
         playersCounter = 0;
+
+        playerID = 0;
     }
 
     public override void OnConnectedToMaster()
@@ -75,15 +72,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             playersCounter = 1;
         }
+        playerID = playersCounter - 1;
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
         PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 10, 13.5f + (playersCounter - 1) * 35), new Quaternion(0, 0, 0, 0));
+        playerRig.transform.position = (new Vector3(0, playerRig.transform.position.y, 13.5f + (playersCounter - 1) * 35));
         PhotonNetwork.Instantiate("Track", new Vector3(0, 0, (playersCounter-1) * 35), new Quaternion(0, 0, 0, 0));
     }
 
-    #endregion
-
-
-    #region Public Methods
 
     /// <summary>
     /// Start the connection process.
@@ -105,8 +100,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.GameVersion = gameVersion;
             }
         }
-
-        #endregion
 
     }
 

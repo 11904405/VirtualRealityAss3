@@ -12,6 +12,7 @@ public class SynchronizingTransformOfObjects : MonoBehaviourPun
     public string tagOfPositionToSync;
     private GameObject objectToSync;
     private bool objectFound;
+    
 
     void Start()
     {

@@ -1,36 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class WinLoseNotificationScript : MonoBehaviour
+public class WinLoseNotificationScript : MonoBehaviourPun
 {
-    public bool win;
-    public bool lose;
+    public bool triggerWinLose;
     public GameObject youWin;
     public GameObject youLose;
+
+    private bool gameFinished;
 
     // Start is called before the first frame update
     void Start()
     {
-        win = false;
-        lose = false;
+        gameFinished = false;
+
+        triggerWinLose = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (win)
+        if (triggerWinLose)
         {
-            youWin.SetActive(true);
+            if (!gameFinished)
+                {
+                    photonView.RPC("othersLose", RpcTarget.Others);
+                    gameFinished = true;
+                    youWin.SetActive(true);
+                }
         }
-        if (lose)
-        {
-            youLose.SetActive(true);
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //TODO: bin mir noch unsicher wie genau, also es soll wenn geentert wird geschaut werden ob gewonnen oder verloren wurde also welcher player als erster berührt bekommt die you win notification
+        if(other.gameObject.tag == "FinishWall")
+        {
+            if (!gameFinished)
+            {
+                photonView.RPC("othersLose", RpcTarget.All);
+                gameFinished = true;
+                youWin.SetActive(true);
+            }
+        }
+        
+    }
+
+
+
+    [PunRPC]
+    public void othersLose()
+    {
+        gameFinished = true;
+        youLose.SetActive(true);        
     }
 }

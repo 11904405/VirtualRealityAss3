@@ -7,7 +7,6 @@ public class LocomotionWithHandMov : MonoBehaviour
 {
 
     public XRBaseController leftHand;
-    public GameObject origin;
     public Transform headTransform;
 
     private float heightMax = 1.5f;
@@ -16,11 +15,20 @@ public class LocomotionWithHandMov : MonoBehaviour
     private bool startUpMovement;
     private bool startDownMovement;
     private bool inMovement;
+    private CharacterController charController;
+    private Vector3 velocity;
+    private float gravity = -9.81f;
+
+    private float speed;
 
     float timeForMovement;
     float timeForLastMovement;
 
     float timeCharacterMoving;
+
+    private float timeUntilSlowDown;
+
+    private float timeSlowDown;
 
 
     // Start is called before the first frame update
@@ -31,6 +39,14 @@ public class LocomotionWithHandMov : MonoBehaviour
         inMovement = false;
 
         timeForMovement = 0;
+
+        velocity = new Vector3(0, 0, 0);
+
+        charController = this.GetComponent<CharacterController>();
+        speed = 0;
+
+        timeUntilSlowDown = 0;
+        timeSlowDown = 0;
     }
 
     // Update is called once per frame
@@ -76,13 +92,13 @@ public class LocomotionWithHandMov : MonoBehaviour
             {
                 startUpMovement = false;
                 Debug.Log("Correct Up Movement, Move one step foward");
-                Vector3 stepDirection = headTransform.forward;
-                stepDirection = new Vector3(stepDirection.x, 0, stepDirection.z);
-                stepDirection = stepDirection.normalized;
-                //origin.transform.position = origin.transform.position + stepDirection/3;
                 timeForLastMovement = timeForMovement;
                 timeForMovement = 0;
                 Debug.Log("Camera viewing Direction: " + headTransform.forward);
+                speed += 0.3f;
+                timeSlowDown = 0;
+                timeUntilSlowDown = 3 - speed;
+                Debug.Log(speed);
             }
         }
 
@@ -98,30 +114,55 @@ public class LocomotionWithHandMov : MonoBehaviour
             {
                 startDownMovement = false;
                 Debug.Log("Correct Down Movement, Move one step foward");
-                Vector3 stepDirection = headTransform.forward;
-                stepDirection = new Vector3(stepDirection.x, 0, stepDirection.z);
-                stepDirection = stepDirection.normalized;
-                //origin.transform.position = origin.transform.position + stepDirection/3;
                 timeForLastMovement = timeForMovement;
                 timeForMovement = 0;
                 Debug.Log("Camera viewing Direction: " + headTransform.forward);
+                speed += 0.4f;
+                timeSlowDown = 0;
+                timeUntilSlowDown = 2 - speed;
+                Debug.Log(speed);
             }
         }
 
-        if (timeCharacterMoving < timeForLastMovement)
+        Vector3 stepDirection = headTransform.forward;
+        stepDirection = new Vector3(stepDirection.x, 0, stepDirection.z);
+        stepDirection = stepDirection.normalized;
+        timeCharacterMoving += Time.deltaTime;
+        charController.Move(stepDirection * Time.deltaTime * speed);
+
+        if (!charController.isGrounded)
         {
-            Vector3 stepDirection = headTransform.forward;
-            stepDirection = new Vector3(stepDirection.x, 0, stepDirection.z);
-            stepDirection = stepDirection.normalized;
-            timeCharacterMoving += Time.deltaTime;
-            origin.transform.position = origin.transform.position + stepDirection * Time.deltaTime / (timeForLastMovement * 2);
+            velocity.y += gravity * Time.deltaTime;
         }
         else
         {
-            timeCharacterMoving = 0;
-            timeForLastMovement = 0;
+            velocity.y = 0; // Reset gravity effect when grounded
         }
 
+        charController.Move(velocity * Time.deltaTime);
 
+        if(speed > 0)
+        {
+            timeSlowDown += Time.deltaTime;
+            if(timeSlowDown >= timeUntilSlowDown)
+            {
+                speed -= 0.4f;
+                timeSlowDown = 0;
+                timeUntilSlowDown = 2 - speed * 0.4f;
+            }
+        }
+        
+
+    }
+
+    public void resetMoveSpeed()
+    {
+        speed = 0;
+        timeSlowDown = 0;
+        timeUntilSlowDown = 0;
+        startUpMovement = false;
+        startDownMovement = false;
+        timeCharacterMoving = 0;
+        timeForMovement = 0;
     }
 }
