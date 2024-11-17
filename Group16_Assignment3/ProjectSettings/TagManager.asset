@@ -7,6 +7,9 @@ TagManager:
   - Anchor
   - LeftHand
   - RightHand
+  - PlayerRig
+  - NetworkManager
+  - FinishWall
   layers:
   - Default
   - TransparentFX
