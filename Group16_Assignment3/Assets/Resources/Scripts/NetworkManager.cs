@@ -74,9 +74,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         playerID = playersCounter - 1;
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        PhotonNetwork.Instantiate("PlayerPrefab", new Vector3(0, 10, 13.5f + (playersCounter - 1) * 35), new Quaternion(0, 0, 0, 0));
+        PhotonNetwork.Instantiate("Prefabs/PlayerPrefab", new Vector3(0, 10, 13.5f + (playersCounter - 1) * 35), new Quaternion(0, 0, 0, 0));
         playerRig.transform.position = (new Vector3(0, playerRig.transform.position.y, 13.5f + (playersCounter - 1) * 35));
-        PhotonNetwork.Instantiate("Track", new Vector3(0, 0, (playersCounter-1) * 35), new Quaternion(0, 0, 0, 0));
+        PhotonNetwork.Instantiate("Prefabs/Track", new Vector3(0, 0, (playersCounter-1) * 35), new Quaternion(0, 0, 0, 0));
     }
 
 
