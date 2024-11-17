@@ -56,4 +56,11 @@ public class WinLoseNotificationScript : MonoBehaviourPun
         gameFinished = true;
         youLose.SetActive(true);        
     }
+
+
+    public void resetGameFinished()
+    {
+        gameFinished = false;
+    }
+
 }

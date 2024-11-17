@@ -93,5 +93,6 @@ public class HandUIInteraction : MonoBehaviourPun
         thisPlayerRdy = false;
         youWin.SetActive(false);
         youLose.SetActive(false);
+        playerRig.GetComponent<WinLoseNotificationScript>().resetGameFinished();
     }
 }
