@@ -22,13 +22,19 @@ public class LocomotionWithHandMov : MonoBehaviour
     private float speed;
 
     float timeForMovement;
-    float timeForLastMovement;
 
     float timeCharacterMoving;
+
+    private float stopMovementTime;
 
     private float timeUntilSlowDown;
 
     private float timeSlowDown;
+
+    public Transform mainCamera;
+
+    private bool firstMotion;
+    private bool moving; 
 
 
     // Start is called before the first frame update
@@ -47,59 +53,81 @@ public class LocomotionWithHandMov : MonoBehaviour
 
         timeUntilSlowDown = 0;
         timeSlowDown = 0;
+        stopMovementTime = 0;
+        moving = false;
+        firstMotion = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (leftHand.transform.position.y < heightMax + 0.1 && leftHand.transform.position.y > heightMax - 0.1)
+        heightMax = mainCamera.position.y * 0.7f;
+        heightMin = mainCamera.position.y * 0.55f;
+
+        if (leftHand.transform.position.y > heightMax)
         {
-            //Debug.Log("Y Posititon of left hand controller: " + leftHand.transform.position.y);
-            Debug.Log("In High Interval");
-            //leftHand.SendHapticImpulse(0.5f, 3);
             if (startDownMovement)
             {
                 timeForMovement = 0;
             }
+            else
+            {
+                stopMovementTime = 0;
+            }
             startDownMovement = true;
-            //startUpMovement = false;
-            //timeForMovement = 0;
         }
 
-        if (leftHand.transform.position.y < heightMin + 0.1 && leftHand.transform.position.y > heightMin - 0.1)
+        if (leftHand.transform.position.y < heightMin)
         {
-            //Debug.Log("Y Posititon of left hand controller: " + leftHand.transform.position.y);
-            Debug.Log("In Low Interval");
-            //leftHand.SendHapticImpulse(0.5f, 3);
             if (startUpMovement)
             {
                 timeForMovement = 0;
             }
+            else
+            {
+                stopMovementTime = 0;
+            }
             startUpMovement = true;
-            //startDownMovement = false;
-            //timeForMovement = 0;
         }
 
         if (startUpMovement == true)
         {
             timeForMovement += Time.deltaTime;
-            if (timeForMovement > 2)
+            if (timeForMovement > 1.4f)
             {
                 startUpMovement = false;
                 timeForMovement = 0;
                 speed = 0;
+                moving = false;
+                firstMotion = false;
             }
-            if (leftHand.transform.position.y > heightMax - 0.1)
+            if (leftHand.transform.position.y > heightMax)
             {
-                startUpMovement = false;
-                Debug.Log("Correct Up Movement, Move one step foward");
-                timeForLastMovement = timeForMovement;
-                timeForMovement = 0;
-                Debug.Log("Camera viewing Direction: " + headTransform.forward);
-                speed += 0.2f;
-                timeSlowDown = 0;
-                timeUntilSlowDown = 1.4f - speed;
-                Debug.Log(speed);
+                if (moving)
+                {
+                    startUpMovement = false;
+                    Debug.Log("Correct Up Movement, Move one step foward");
+                    timeForMovement = 0;
+                    stopMovementTime = 0;
+                    //Debug.Log("Camera viewing Direction: " + headTransform.forward);              
+                    speed += 0.3f;                
+                    //timeSlowDown = 0;
+                    timeUntilSlowDown = 2.1f - speed;
+                    Debug.Log(speed);
+                }
+                else if (!firstMotion)
+                {
+                    startUpMovement = false;
+                    speed = 0;
+                    firstMotion = true;
+                    Debug.Log("firstMotionTrue up");
+                }
+                else
+                {
+                    moving = true;
+                    firstMotion = false;
+                    Debug.Log("movingTrue up");
+                }
             }
         }
 
@@ -111,26 +139,60 @@ public class LocomotionWithHandMov : MonoBehaviour
                 startDownMovement = false;
                 timeForMovement = 0;
                 speed = 0;
+                moving = false;
+                firstMotion = false;
             }
-            if (leftHand.transform.position.y < heightMin + 0.1)
+            if (leftHand.transform.position.y < heightMin)
             {
-                startDownMovement = false;
-                Debug.Log("Correct Down Movement, Move one step foward");
-                timeForLastMovement = timeForMovement;
-                timeForMovement = 0;
-                Debug.Log("Camera viewing Direction: " + headTransform.forward);
-                speed += 0.2f;
-                timeSlowDown = 0;
-                timeUntilSlowDown = 1.4f - speed;
-                Debug.Log(speed);
+                if (moving)
+                {
+                    startDownMovement = false;
+                    Debug.Log("Correct Down Movement, Move one step foward");
+                    timeForMovement = 0;
+                    //Debug.Log("Camera viewing Direction: " + headTransform.forward);
+                    speed += 0.3f;
+                    //timeSlowDown = 0;
+                    timeUntilSlowDown = 2.1f - speed;
+                    Debug.Log(speed);
+                }
+                else if (!firstMotion) {
+                    startDownMovement = false;
+                    speed = 0;
+                    firstMotion = true;
+                    Debug.Log("firstMotionTrue down");
+                }
+                else
+                {
+                    moving = true;
+                    firstMotion = false;
+                    Debug.Log("moving true down");
+                }
             }
         }
 
-        Vector3 stepDirection = headTransform.forward;
-        stepDirection = new Vector3(stepDirection.x, 0, stepDirection.z);
-        stepDirection = stepDirection.normalized;
-        timeCharacterMoving += Time.deltaTime;
-        charController.Move(stepDirection * Time.deltaTime * speed);
+        if (stopMovementTime >= 1.8f)
+        {
+            startDownMovement = false;
+            startUpMovement = false;
+            timeForMovement = 0;
+            speed = 0;
+            moving = false;
+            firstMotion = false;
+        }
+
+
+        if (moving)
+        {
+            Vector3 stepDirection = headTransform.forward;
+            stepDirection = new Vector3(stepDirection.x, 0, stepDirection.z);
+            stepDirection = stepDirection.normalized;
+            timeCharacterMoving += Time.deltaTime;
+            charController.Move(stepDirection * Time.deltaTime * speed);
+            
+        }
+        stopMovementTime += Time.deltaTime;
+
+
 
         if (!charController.isGrounded)
         {
@@ -141,19 +203,26 @@ public class LocomotionWithHandMov : MonoBehaviour
             velocity.y = 0; // Reset gravity effect when grounded
         }
 
-        charController.Move(velocity * Time.deltaTime);
+        if (moving)
+        {
+            charController.Move(velocity * Time.deltaTime);          
+        }
 
-        if(speed > 0)
+        if (speed > 0)
         {
             timeSlowDown += Time.deltaTime;
-            if(timeSlowDown >= timeUntilSlowDown)
+            if (timeSlowDown >= timeUntilSlowDown)
             {
-                speed -= 0.2f;
+                speed -= 0.3f;
                 timeSlowDown = 0;
-                timeUntilSlowDown = 2 - speed * 0.2f;
+                timeUntilSlowDown = 2.1f - speed;
+                if(speed <= 0)
+                {
+                    moving = false;
+                    firstMotion = false;
+                }
             }
-        }
-        
+        }       
 
     }
 
@@ -166,5 +235,7 @@ public class LocomotionWithHandMov : MonoBehaviour
         startDownMovement = false;
         timeCharacterMoving = 0;
         timeForMovement = 0;
+        moving = false;
+        firstMotion = false;
     }
 }
