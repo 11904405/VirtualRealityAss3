@@ -17,6 +17,7 @@ public class HandUIInteraction : MonoBehaviourPun
 
     public GameObject playerRig;
 
+    public GameObject start;
     public GameObject youWin;
     public GameObject youLose;
 
@@ -71,7 +72,15 @@ public class HandUIInteraction : MonoBehaviourPun
     [PunRPC]
     public void startGame()
     {
+        start.SetActive(true);
+        StartCoroutine(DeactivateAfterSeconds());
+    }
 
+
+    IEnumerator DeactivateAfterSeconds()
+    {
+        yield return new WaitForSeconds(3f);
+        start.SetActive(false);
     }
 
     [PunRPC]
