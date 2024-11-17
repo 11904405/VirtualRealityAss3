@@ -95,9 +95,9 @@ public class LocomotionWithHandMov : MonoBehaviour
                 timeForLastMovement = timeForMovement;
                 timeForMovement = 0;
                 Debug.Log("Camera viewing Direction: " + headTransform.forward);
-                speed += 0.3f;
+                speed += 0.2f;
                 timeSlowDown = 0;
-                timeUntilSlowDown = 3 - speed;
+                timeUntilSlowDown = 1.4f - speed;
                 Debug.Log(speed);
             }
         }
@@ -117,9 +117,9 @@ public class LocomotionWithHandMov : MonoBehaviour
                 timeForLastMovement = timeForMovement;
                 timeForMovement = 0;
                 Debug.Log("Camera viewing Direction: " + headTransform.forward);
-                speed += 0.4f;
+                speed += 0.2f;
                 timeSlowDown = 0;
-                timeUntilSlowDown = 2 - speed;
+                timeUntilSlowDown = 1.4f - speed;
                 Debug.Log(speed);
             }
         }
@@ -146,9 +146,9 @@ public class LocomotionWithHandMov : MonoBehaviour
             timeSlowDown += Time.deltaTime;
             if(timeSlowDown >= timeUntilSlowDown)
             {
-                speed -= 0.4f;
+                speed -= 0.2f;
                 timeSlowDown = 0;
-                timeUntilSlowDown = 2 - speed * 0.4f;
+                timeUntilSlowDown = 2 - speed * 0.2f;
             }
         }
         
