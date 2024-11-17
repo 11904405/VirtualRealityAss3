@@ -43,6 +43,10 @@ public class SynchronizingTransformOfObjects : MonoBehaviourPun
         {
             this.transform.position = objectToSync.transform.position;
             this.transform.rotation = objectToSync.transform.rotation;
+            if(objectToSync.tag == "MainCamera")
+            {
+                this.transform.Rotate(new Vector3(0, 180, 0));
+            }
         }
         else
         {
